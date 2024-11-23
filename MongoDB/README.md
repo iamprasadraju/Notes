@@ -46,6 +46,12 @@ MongoDB shell is a modern command-line experience, full with features to make it
 
 Download - [https://www.mongodb.com/try/download/shell](https://www.mongodb.com/try/download/shell)
 
+- To Use MongoDB shell on windows. Type this in terminal:
+
+  ```
+  mongosh
+  ```
+
 ### MongoDB Compass:
 
 The GUI For MongoDB. Compass is a free interactive tool for querying,optimizing,and analyzing MongoDB data
