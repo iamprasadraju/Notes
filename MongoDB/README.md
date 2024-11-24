@@ -58,6 +58,170 @@ The GUI For MongoDB. Compass is a free interactive tool for querying,optimizing,
 
 Download - [https://www.mongodb.com/products/tools/compass](https://www.mongodb.com/products/tools/compass)
 
+### Documents & Collections in MongoDB:
+
+- Document: similar to rows (or) records in a relational database table, documents contains one or more fields.
+  - Documents are data records
+
+- Collections: similar to tables in a relational database system, collection group documents together. A collection can contain multiple documents.
+
+![image](https://github.com/user-attachments/assets/86a8de67-d20e-4fc0-b6a9-6ccb992aaad1)
+
+#### Example for a document:
+- Documents are stored as JSON (mainly BSON)
+
+```
+{
+"title" : "My first blog post",
+"author" : "Prasad Raju",
+"tags" : ["video games", "reviews"],
+"upvotes" : 20,
+"body" : "Lorem ipsum"
+}
+
+```
+
+## Working with MongoDB shell:
+
+- Show all the databases
+  
+  ```
+  show dbs
+  ```
+- Create Or Switch Database - Ex: use books
+
+  ```
+  use <database name>
+  ```
+- Clear the Screen
+
+  ```
+  cls
+  ```
+
+- Show the current Database
+
+  ```
+    db
+  ```
+
+- Shows the all collections in that database
+
+  ```
+    show collections
+  ```
+
+- list of all commands
+
+  ```
+    help
+  ```
+- Exit MongoDB shell
+
+  ```
+  exit
+  ```
+
+- Drop the Database
+
+  ```
+  db.dropDatabase()
+  ```
+- Create Collection
+
+  ```
+  db.createCollection('<collection name>')
+  ```
+
+- Inserting one document into a collection
+
+   ```
+   db.<collection>.insertOne({})
+   ```
+     - Example:
+      
+       ```
+       db.<collection>.insertOne({
+                                     title : "The color of Magic",
+                                     author : "Prasad Raju",
+                                     pages : 300,
+                                     rating : 7,
+                                     genres : ["fantasy","magic"]
+                                })
+       ```
+- Inserting more documents into the database at a time.
+
+  ```
+  db.<collection>.insertMany([{}])
+  ```
+
+- Returns all documents in the collection.
+
+  ```
+  db.<collection>.find()
+  ```
+
+- Using filters on find method.
+
+  ```
+  db.<collectio>.find({field : value})
+  
+  (or)
+  
+  db.collection.find( <query>, <projection>, <options> )
+  ```
+   - Examples:
+     
+      ```
+      db.books.find({author: "Prasad Raju"}) 
+      ```
+
+      ```
+      db.books.find({ author : "Prasad Raju", rating : 7})
+      ```
+
+      ```
+      db.books.find({ author : "Prasad Raju"}, { title : 1, author : 1})
+
+      This query only returns title and author field on this filter
+      ```
+
+      ```
+      db.books.find({}, {title: 1, author: 1})
+      ```
+ - Return only one document with a filter
+      ```
+      db.<collection>.findOne({<field: value>})
+      ```
+### Chaining the methods:
+
+- Return the count of the documents in that collection.
+
+  ```
+  db.<collection>.find().count()
+  ```
+
+  - Example:
+
+    ```
+    db.books.find({ author: "Prasad Raju"}).count()
+    ```
+
+- Return the first three documents, if we chain count() method it will return the number 3.
+
+  ```
+  db.<collection>.find().limit(3)
+  ```
+
+- Return the all documents sorted by their field value.
+
+  ```
+  db.<collection>.find().sort({field : value})
+  ```
+   - Example: Returns the three sorted documents by title.
+          ```
+          db.books.find().sort({title : 1}).limit(3)
+         ```
 # MongoDB Cheat Sheet
 
 ## Show All Databases
