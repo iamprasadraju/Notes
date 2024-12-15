@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>README Viewer</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --background-color: #f8f9fa;
+      --text-color: #212529;
+      --highlight-color: yellow;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--background-color);
+      color: var(--text-color);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--primary-color);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    #search-box {
+      width: 100%;
+      max-width: 400px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    #readme-container {
+      margin-top: 20px;
+      border: 1px solid #ddd;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: auto;
+      height: 70vh;
+    }
+
+    .highlight {
+      background-color: var(--highlight-color);
+      cursor: pointer;
+      border-radius: 3px;
+      padding: 0 2px;
+    }
+
+    .line {
+      display: block;
+      margin: 0;
+    }
+
+    footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      #search-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>README Viewer</h1>
+    <input type="text" id="search-box" placeholder="Search README..." oninput="searchREADME()" />
+  </header>
+
+  <div id="readme-container"></div>
+
+  <footer>
+    <p>Made with ❤️ to help you navigate your README effectively.</p>
+  </footer>
+
+  <script>
+    // Fetch the README content
+    fetch('README.md')
+      .then(response => response.text())
+      .then(markdown => {
+        const lines = markdown.split('\n');
+        const html = lines
+          .map((line, index) => `<span id="line-${index}" class="line">${marked.parseInline(line)}</span>`)
+          .join('');
+        document.getElementById('readme-container').innerHTML = html;
+      });
+
+    // Search function
+    function searchREADME() {
+      const query = document.getElementById('search-box').value.toLowerCase();
+      const container = document.getElementById('readme-container');
+      const lines = container.querySelectorAll('.line');
+      
+      // Remove previous highlights
+      lines.forEach(line => {
+        line.classList.remove('highlight');
+        line.removeAttribute('onclick');
+      });
+
+      if (query) {
+        lines.forEach(line => {
+          const text = line.textContent || line.innerText;
+          if (text.toLowerCase().includes(query)) {
+            line.classList.add('highlight');
+            line.onclick = () => scrollToLine(line.id);
+          }
+        });
+      }
+    }
+
+    // Scroll to the clicked line
+    function scrollToLine(lineId) {
+      const targetLine = document.getElementById(lineId);
+      if (targetLine) {
+        targetLine.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  </script>
+</body>
+</html>
