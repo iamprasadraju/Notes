@@ -70,8 +70,8 @@
 - But not so great at dynamic operations...
 - (For consistency, we maintain the invariant that array is full)
 - **Inserting and Removing Items Requires:**
-  - [ ] Reallocating the array
-  - [ ] Shifting all items after the modified item
+  - Reallocating the array
+  - Shifting all items after the modified item
  
 
 
