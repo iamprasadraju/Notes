@@ -78,7 +78,7 @@
 
 
 
-```python
+```
 class Array_Seq:
     def __init__(self):              # O(1)
         self.A = []
