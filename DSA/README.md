@@ -8,6 +8,7 @@
     • In this class, two main interfaces: Sequence and Set
 
 ## Sequence Interface (L02, L07)
+
     • Maintain a sequence of items (order is extrinsic)
     • Ex: (x0, x1, x2, . . . , xn−1) (zero indexing)
     • (use n to denote the number of items stored in the data structure)
